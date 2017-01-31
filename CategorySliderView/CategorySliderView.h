@@ -38,4 +38,6 @@ typedef void(^categorySelected)(UIView *categoryView, NSInteger categoryIndex);
 - (void)moveX:(CGFloat)x duration:(NSTimeInterval)duration complation:(void(^)(void))complation;
 - (void)moveY:(CGFloat)y duration:(NSTimeInterval)duration complation:(void(^)(void))complation;
 
+- (void)slideItemAtIndex:(NSInteger)index animated:(BOOL)animated;
+
 @end
