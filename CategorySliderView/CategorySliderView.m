@@ -90,7 +90,11 @@
         [view addGestureRecognizer:tap];
         [view setTag:self.categoryViews.count];
         
-        w += [self width]/2 + view.frame.size.width/2;
+        if (self.horizontalSelectionCenter) {
+            w += [self width]/2 + view.frame.size.width/2;
+        } else {
+            w += [self width];
+        }
         [self.scrollView setContentSize:CGSizeMake(w, self.scrollView.contentSize.height)];
         [self.categoryViews addObject:view];
     }
