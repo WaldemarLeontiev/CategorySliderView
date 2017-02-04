@@ -57,6 +57,7 @@
         self.categoryViewPadding = 20;
         self.shouldAutoScrollSlider = YES;
         self.shouldAutoSelectScrolledCategory = YES;
+        self.horizontalSelectionCenter = YES;
         
         for (UIView *v in categoryViews) {
             [self addCategoryView:v];
@@ -76,7 +77,7 @@
             UIView *lastView = [self.categoryViews lastObject];
             w = lastView.frame.origin.x+lastView.frame.size.width+self.categoryViewPadding;
         }
-        else {
+        else if (self.horizontalSelectionCenter) {
             w = [self width]/2 - view.frame.size.width/2;
         }
         
@@ -198,7 +199,11 @@
     UIView *v = [self.categoryViews objectAtIndex:index];
     
     if (self.sliderDirection == SliderDirectionHorizontal)
-        [self.scrollView setContentOffset:CGPointMake(v.center.x - [self width]/2, self.scrollView.contentOffset.y) animated:animated];
+        if (self.horizontalSelectionCenter) {
+            [self.scrollView setContentOffset:CGPointMake(v.center.x - [self width]/2, self.scrollView.contentOffset.y) animated:animated];
+        } else {
+            [self.scrollView setContentOffset:CGPointMake(v.frame.origin.x, self.scrollView.contentOffset.y) animated:animated];
+        }
     else if (self.sliderDirection == SliderDirectionVertical)
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, v.center.y - [self height]/2) animated:animated];
     
@@ -222,7 +227,12 @@
     if (self.sliderDirection == SliderDirectionHorizontal) {
         if (velocity.x == 0)
         {
-            float x = scrollView.contentOffset.x + [self width]/2;
+            float x;
+            if (self.horizontalSelectionCenter) {
+                x = scrollView.contentOffset.x + [self width]/2;
+            } else {
+                x = scrollView.contentOffset.x;
+            }
             float distance = 1000;
             int closest = -1;
             
@@ -268,7 +278,12 @@
         return;
    
     if (self.sliderDirection == SliderDirectionHorizontal) {
-        float x = scrollView.contentOffset.x + [self width]/2;
+        float x;
+        if (self.horizontalSelectionCenter) {
+            x = scrollView.contentOffset.x + [self width]/2;
+        } else {
+            x = scrollView.contentOffset.x;
+        }
         float distance = 1000;
         int closest = -1;
         

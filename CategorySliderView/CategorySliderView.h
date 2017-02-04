@@ -24,6 +24,7 @@ typedef void(^categorySelected)(UIView *categoryView, NSInteger categoryIndex);
 @property (assign) NSInteger categoryViewPadding; //default 20
 @property (assign) BOOL shouldAutoScrollSlider; // default YES auto scrolls closest category after scroll drag ends
 @property (assign) BOOL shouldAutoSelectScrolledCategory; // default YES auto selects the slided category
+@property (assign) BOOL horizontalSelectionCenter; // default YES: selected category is centered (NO - aligned left)
 
 - (instancetype)initWithFrame:(CGRect)frame andSliderDirection:(SliderDirection)direction;
 - (instancetype)initWithFrame:(CGRect)frame andCategoryViews:(NSArray *)categoryViews sliderDirection:(SliderDirection)direction categorySelectionBlock:(categorySelected)block;
